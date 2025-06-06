@@ -17,8 +17,8 @@ A API possui endpoints para:
 | Nome Completo  | RM |
 |----------------|----|
 | Bruno Cont     | 555324 |
-| Beatriz Porto  | (556743) |
-| Henrique Souza | (556937) |
+| Beatriz Porto  | 556743 |
+| Henrique Souza | 556937 |
 
 ---
 
