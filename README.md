@@ -29,3 +29,5 @@ A API possui endpoints para:
 - Spring Data JPA
 - Maven
 - Banco de Dados H2
+
+## OBS: Professor, eu compartilho o PC com meu irmão e deu algum bug que na hora de commitar aparece que o commit foi feito pela conta dele, o mesmo problema que deu uma vez que o commit saiu como o user da FIAP, vou tentar corrigir aqui, mas um aviso que os primeiros commits sairam na conta dele!
