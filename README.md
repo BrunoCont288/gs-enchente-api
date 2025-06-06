@@ -31,3 +31,5 @@ A API possui endpoints para:
 - Banco de Dados H2
 
 ## OBS: Professor, eu compartilho o PC com meu irmão e deu algum bug que na hora de commitar aparece que o commit foi feito pela conta dele, o mesmo problema que deu uma vez que o commit saiu como o user da FIAP, vou tentar corrigir aqui, mas um aviso que os primeiros commits sairam na conta dele! Verifiquei aqui, mesmo não havendo a conta dele logada no intellij o commit sai como se você no perfil dele.
+
+## Teste 1: Acabei vendo que ele configurou localmente para ir com o nome dele, por isso o conflito alterei usando os comando "git config --global user.name" e "git config --global user.email" irei testar novamente agora!
