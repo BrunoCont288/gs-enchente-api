@@ -9,21 +9,39 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller principal para gerenciar os dados de sensores e alertas de enchente.
+ */
 @RestController
-@RequestMapping("/api/enchente") // Todos os endpoints desta classe começarão com /api/enchente
+@RequestMapping("/api/enchente")
+// ============================================================================================
+// == CORREÇÃO APLICADA AQUI: A porta foi trocada para 8081, a porta do seu app na web. ==
+@CrossOrigin(origins = "http://localhost:8081")
+// ============================================================================================
 public class EnchenteController {
 
     @Autowired
     private AlertaService alertaService;
 
-    // Endpoint para leitura de dados de sensores simulados (Nível da água, clima)
+    /**
+     * [POST /api/enchente/sensor]
+     * Endpoint para registrar uma nova leitura de dados de um sensor.
+     * Recebe os dados do sensor no corpo da requisição e os salva.
+     * @param dados Os dados do sensor a serem salvos.
+     * @return Os dados do sensor que foram salvos, com o ID preenchido.
+     */
     @PostMapping("/sensor")
-    @ResponseStatus(HttpStatus.CREATED)
-    public DadosSensor registrarLeitura(@RequestBody DadosSensor dados) {
-        return alertaService.salvarDados(dados);
+    public ResponseEntity<DadosSensor> registrarLeitura(@RequestBody DadosSensor dados) {
+        DadosSensor dadosSalvos = alertaService.salvarDados(dados);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dadosSalvos);
     }
 
-    // Endpoint para emissão de alertas conforme níveis de risco
+    /**
+     * [GET /api/enchente/alerta/{id}]
+     * Endpoint para verificar o nível de risco com base em uma leitura de sensor específica.
+     * @param id O ID do registro do sensor a ser verificado.
+     * @return Uma string com a descrição do nível de risco.
+     */
     @GetMapping("/alerta/{id}")
     public ResponseEntity<String> emitirAlerta(@PathVariable Long id) {
         return alertaService.buscarPorId(id)
@@ -31,16 +49,27 @@ public class EnchenteController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Endpoint para ações de controle (simulação de ativação de barreiras e registro de históricos)
+    /**
+     * [POST /api/enchente/controle/barreira/{idSensor}]
+     * Endpoint para simular a ativação de uma barreira de contenção.
+     * @param idSensor O ID do sensor cujo alerta justifica a ação de controle.
+     * @return Uma string confirmando a ação.
+     */
     @PostMapping("/controle/barreira/{idSensor}")
     public ResponseEntity<String> ativarBarreira(@PathVariable Long idSensor) {
         String resultado = alertaService.acionarBarreira(idSensor);
         return ResponseEntity.ok(resultado);
     }
 
-    // Endpoint extra para listar todos os registros (ajuda a visualizar)
+    /**
+     * [GET /api/enchente/historico]
+     * Endpoint para listar todos os registros de dados de sensores.
+     * Útil para visualizar o histórico de leituras.
+     * @return Uma lista com todos os dados de sensores.
+     */
     @GetMapping("/historico")
-    public List<DadosSensor> listarHistorico() {
-        return alertaService.buscarTodos();
+    public ResponseEntity<List<DadosSensor>> listarHistorico() {
+        List<DadosSensor> historico = alertaService.buscarTodos();
+        return ResponseEntity.ok(historico);
     }
 }

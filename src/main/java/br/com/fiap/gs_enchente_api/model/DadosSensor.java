@@ -14,13 +14,31 @@ public class DadosSensor {
     private String clima; // Ex: "Ensolarado", "Chuvoso", "Tempestade"
     private LocalDateTime dataLeitura;
 
+    // =======================================================
+    // == CÓDIGO ADICIONADO PARA GUARDAR A MENSAGEM DE RISCO ==
+    private String nivelRisco;
+    // =======================================================
+
     // Este método será executado automaticamente antes de um novo dado ser salvo
     @PrePersist
     public void prePersist() {
         dataLeitura = LocalDateTime.now();
     }
 
-    // Getters e Setters (essenciais para o Spring/JPA funcionar)
+    // --- Getters e Setters ---
+
+    // =======================================================
+    // == GETTER E SETTER PARA O NOVO CAMPO ==
+    public String getNivelRisco() {
+        return nivelRisco;
+    }
+
+    public void setNivelRisco(String nivelRisco) {
+        this.nivelRisco = nivelRisco;
+    }
+    // =======================================================
+
+    // Getters e Setters existentes
     public Long getId() {
         return id;
     }
